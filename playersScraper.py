@@ -11,6 +11,12 @@ import sys
 
 def main():
 
+    url_file = ''
+    if len(sys.argv) < 2:
+        url_file = 'playersURLs.csv'
+    else:
+        url_file = sys.argv[1]
+
     # import existing data into SQL DB
     players_data = pd.read_csv('data/playersData.csv', sep=';')
     conn = sqlite3.connect('taskdb')
@@ -33,7 +39,7 @@ def main():
 
     # scrape new data off Wikipedia
     urls = []
-    with open('data/' + sys.argv[1], 'r') as f:
+    with open('data/' + url_file, 'r') as f:
         for line in f.readlines():
             urls.append(line.replace('\n', ''))
 
